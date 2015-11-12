@@ -37,6 +37,8 @@
 
 @implementation TimeLineVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -56,23 +58,24 @@
     
     _userID = [_profileDictionary objectForKey:@"id"];
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    
-    [self.refreshControl addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
-    
-    [self.tableView addSubview:self.refreshControl];
-
+    [self setPullToRefresh];
     
     [self loadData:_userDefaults];
     
     
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setPullToRefresh {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    
+    [self.refreshControl addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
 }
 
 -(void) loadData:(NSUserDefaults*) userDefaults{

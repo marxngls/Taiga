@@ -14,10 +14,6 @@
 #import "TimeLineVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-#define PROJECTS_URL        @"http://taiga.vestnikburi.com/api/v1/projects"
-
-#define USERSTORIES_URL     @"http://taiga.vestnikburi.com/api/v1/userstories"
-
 @interface DasboardVC ()<APIManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString * userToken;
