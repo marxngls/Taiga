@@ -14,6 +14,8 @@
 #import "TimeLineVC.h"
 #import "KanbanVC.h"
 #import "IssueVC.h"
+#import "MenuVC.h"
+#import <MMDrawerController/MMDrawerController.h>
 
 
 #define DEFAULT_URL @"http://taiga.vestnikburi.com/api/v1/auth"
@@ -269,39 +271,20 @@
 }
 
 - (void)loadWithMenu {
-    KanbanVC * kanban = [KanbanVC new];
-    
     DasboardVC* dashboard = [DasboardVC new];
     
-    TimeLineVC* timeLine = [TimeLineVC new];
+    MenuVC * menu = [MenuVC new];
     
-    IssueVC* issue = [IssueVC new];
+    MMDrawerController * drawerController = [[MMDrawerController alloc]
+                                             initWithCenterViewController:dashboard leftDrawerViewController:menu];
     
-    UINavigationController *dashboardNC = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    menu.drawController = drawerController;
     
-    dashboardNC.tabBarItem.image = [UIImage imageNamed:@"dashboard"];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
-    UINavigationController *timeLineNC = [[UINavigationController alloc] initWithRootViewController:timeLine];
-    
-    timeLineNC.tabBarItem.image = [UIImage imageNamed:@"timeline2"];
-    
-    UINavigationController *kanbanNC = [[UINavigationController alloc] initWithRootViewController:kanban];
-    
-    kanbanNC.tabBarItem.image = [UIImage imageNamed:@"kanban"];
-    
-    UINavigationController *issueNC = [[UINavigationController alloc] initWithRootViewController:issue];
-    
-    issueNC.tabBarItem.image = [UIImage imageNamed:@"team"];
-    
-    TabBar * menu = [TabBar new];
-    
-    menu.tabBar.translucent = NO;
-    
-    [menu.tabBar setBarTintColor:[UIColor blackColor]];
-    
-    menu.viewControllers = @[dashboardNC,timeLineNC,kanbanNC,issueNC];
-    
-    [self.navigationController presentViewController:menu animated:NO completion:nil];
+    [self.navigationController presentViewController:drawerController animated:NO completion:nil];
+
 }
 
 #pragma mark - APIManagerDelegate

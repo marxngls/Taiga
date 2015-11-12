@@ -80,7 +80,7 @@
 #pragma mark - UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -94,6 +94,8 @@
         case 1:
             numberOfRows = (int)_arrayOfLastProjects.count;
             break;
+        case 3:
+            numberOfRows = 1;
         default:
             break;
     }
@@ -166,6 +168,7 @@
             
             break;
         default:
+            cell.textLabel.text = @"Выйти";
             break;
     }
     
@@ -216,8 +219,6 @@
     }
     else{
         
-        UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-        
         NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
         
         NSString * newID = [[_arrayOfLastProjects objectAtIndex:indexPath.row] objectForKey:@"id"];
@@ -239,7 +240,7 @@
 }
 
 
-#pragma APIManager
+#pragma mark - APIManager
 
 -(void)response:(APIManager *)manager Answer:(id)respObject{
     if (respObject != nil) {
