@@ -28,6 +28,8 @@
 		28E6BF641BDFE4EA0064665F /* KanbanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E6BF631BDFE4EA0064665F /* KanbanVC.m */; };
 		28E6BF671BDFE57B0064665F /* IssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E6BF661BDFE57B0064665F /* IssueVC.m */; };
 		573A23719ADE434EC5733493 /* libPods-Taiga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D7247F74D7BCB030F9AB47 /* libPods-Taiga.a */; };
+		BB3BE30B1BF4922400313719 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3BE30A1BF4922400313719 /* Security.framework */; };
+		BB3BE30D1BF4923000313719 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3BE30C1BF4923000313719 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		28E6BF661BDFE57B0064665F /* IssueVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueVC.m; sourceTree = "<group>"; };
 		5BF1166EB2D94D564C12BCF6 /* Pods-Taiga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiga.release.xcconfig"; path = "Pods/Target Support Files/Pods-Taiga/Pods-Taiga.release.xcconfig"; sourceTree = "<group>"; };
 		A3D7247F74D7BCB030F9AB47 /* libPods-Taiga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taiga.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB3BE30A1BF4922400313719 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BB3BE30C1BF4923000313719 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BD02035847C375D6F41643DD /* Pods-Taiga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiga.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Taiga/Pods-Taiga.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3BE30D1BF4923000313719 /* CoreFoundation.framework in Frameworks */,
+				BB3BE30B1BF4922400313719 /* Security.framework in Frameworks */,
 				573A23719ADE434EC5733493 /* libPods-Taiga.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +245,8 @@
 		BC6CD7D7673F342A915FDBB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB3BE30C1BF4923000313719 /* CoreFoundation.framework */,
+				BB3BE30A1BF4922400313719 /* Security.framework */,
 				A3D7247F74D7BCB030F9AB47 /* libPods-Taiga.a */,
 			);
 			name = Frameworks;
@@ -286,7 +294,7 @@
 				TargetAttributes = {
 					284945871BDE2B7000B83C21 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = G4477RJAUF;
+						DevelopmentTeam = P5Q8AK6HKQ;
 					};
 				};
 			};
@@ -487,10 +495,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Taiga/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vestnik.Taiga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -500,10 +511,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Taiga/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vestnik.Taiga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
