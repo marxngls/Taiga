@@ -12,10 +12,6 @@
 #import "APIManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-
-#define API_URL           @"http://taiga.vestnikburi.com/api/v1/userstories"
-
-
 @interface KanbanVC ()<UITableViewDataSource, UITableViewDelegate, APIManagerDelegate>
 
 @property (nonatomic, strong) UITableView * tableView;
@@ -47,13 +43,18 @@
     
     [self createTableView];
     
-    NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     
-    _dictionaryOfProfile = [[NSDictionary alloc] initWithDictionary:[user objectForKey:@"profile"]];
+    _dictionaryOfProfile = [[NSDictionary alloc] initWithDictionary:[userDefaults objectForKey:@"profile"]];
     
     _userToken = [_dictionaryOfProfile objectForKey:@"auth_token"];
     
-    [[APIManager managerWithDelegate:self] getDataFromURL:API_URL withParams:nil andToken:_userToken];
+    NSString *serverURL = [userDefaults objectForKey:@"serverURL"];
+    
+    serverURL = [serverURL stringByAppendingString:@"userstories"];
+
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:serverURL withParams:nil andToken:_userToken];
 
 }
 

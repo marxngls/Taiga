@@ -70,9 +70,18 @@
 }
 
 -(void) loadData{
-    [[APIManager managerWithDelegate:self] getDataFromURL:PROJECTS_URL withParams:nil andToken:_userToken];
     
-    [[APIManager managerWithDelegate:self] getDataFromURL:USERSTORIES_URL withParams:nil andToken:_userToken];
+    NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+    
+    NSString* serverURL = [user objectForKey:@"serverURL"];
+    
+    NSString* projectsURL = [serverURL stringByAppendingString:@"projects"];
+    
+    NSString* userStoriesURL = [serverURL stringByAppendingString:@"userstories"];
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:projectsURL withParams:nil andToken:_userToken];
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:userStoriesURL withParams:nil andToken:_userToken];
 }
 
 - (void)makeNavbarTransparent {

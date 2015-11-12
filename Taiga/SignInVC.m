@@ -292,8 +292,13 @@
 - (void) response: (APIManager* ) manager Answer:(id) respObject{
         
     NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-        
+    
+    
     [user setObject:respObject forKey:@"profile"];
+    
+    _server = [_server stringByReplacingOccurrencesOfString:@"auth" withString:@""];
+    
+    [user setObject:_server forKey:@"serverURL"];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self loadWithMenu];
