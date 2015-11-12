@@ -13,6 +13,8 @@
 #import "DasboardVC.h"
 #import "TimeLineVC.h"
 #import "APIManager.h"
+#import "LoginVC.h"
+#import "SignInVC.h"
 
 #define API_URL           @"http://taiga.vestnikburi.com/api/v1/projects"
 
@@ -36,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
@@ -48,7 +50,7 @@
     [[APIManager managerWithDelegate:self] getDataFromURL:API_URL withParams:nil andToken:_userToken];
     
     [self createTableView];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,7 +96,7 @@
         case 1:
             numberOfRows = (int)_arrayOfLastProjects.count;
             break;
-        case 3:
+        case 2:
             numberOfRows = 1;
         default:
             break;
@@ -114,6 +116,7 @@
             title = @"Projects";
             break;
         default:
+            title = @"";
             break;
     }
     
@@ -164,15 +167,19 @@
             else{
                 cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
             }
-
+            
+            
+            break;
+        case 2:
+            
+            cell.textLabel.text = @"Выйти";
             
             break;
         default:
-            cell.textLabel.text = @"Выйти";
             break;
     }
     
-
+    
     return cell;
 }
 
@@ -185,6 +192,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     id VC = [DasboardVC new];
+    
+    MenuVC * menu = [MenuVC new];
     
     if (indexPath.section == 0) {
         switch (indexPath.row) {
@@ -204,20 +213,13 @@
             default:
                 break;
         }
-        MenuVC * menu = [MenuVC new];
-        
-        MMDrawerController * drawerController = [[MMDrawerController alloc]
-                                                 initWithCenterViewController:VC leftDrawerViewController:menu];
-        
-        
-        
-        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
         
         [_drawController setCenterViewController:VC];
         
+        [_drawController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+        
     }
-    else{
+    else if (indexPath.section == 1){
         
         NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
         
@@ -225,18 +227,34 @@
         
         [user setObject:newID  forKey:@"currentProject"];
         
-//        cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
+        //        cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView reloadData];
         });
-
+    }
+    else if (indexPath.section == 2){
+        
+        SignInVC * signInVC = [SignInVC new];
+        
+        NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+        
+        [user removeObjectForKey:@"profile"];
+        
+        [_drawController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+            
+            UINavigationController * signInNC = [[UINavigationController alloc] initWithRootViewController:signInVC];
+           
+            [_drawController presentViewController:signInNC animated:YES completion:nil];
+            
+        }];
+                
         
     }
     
     
- 
+    
 }
 
 
@@ -257,14 +275,14 @@
         
         
         _arrayOfLastProjects = [NSMutableArray new];
-    
+        
         
         for (int i = 0; i < 3; i++ ) {
             [_arrayOfLastProjects addObject:[_arrayOfProjects objectAtIndex:i]];
         }
         
         [self setCurrentProject];
-
+        
         
         [self.tableView reloadData];
     }
