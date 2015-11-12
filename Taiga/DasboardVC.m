@@ -14,10 +14,6 @@
 #import "TimeLineVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-#define PROJECTS_URL        @"http://taiga.vestnikburi.com/api/v1/projects"
-
-#define USERSTORIES_URL     @"http://taiga.vestnikburi.com/api/v1/userstories"
-
 @interface DasboardVC ()<APIManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString * userToken;
@@ -70,9 +66,18 @@
 }
 
 -(void) loadData{
-    [[APIManager managerWithDelegate:self] getDataFromURL:PROJECTS_URL withParams:nil andToken:_userToken];
     
-    [[APIManager managerWithDelegate:self] getDataFromURL:USERSTORIES_URL withParams:nil andToken:_userToken];
+    NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+    
+    NSString* serverURL = [user objectForKey:@"serverURL"];
+    
+    NSString* projectsURL = [serverURL stringByAppendingString:@"projects"];
+    
+    NSString* userStoriesURL = [serverURL stringByAppendingString:@"userstories"];
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:projectsURL withParams:nil andToken:_userToken];
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:userStoriesURL withParams:nil andToken:_userToken];
 }
 
 - (void)makeNavbarTransparent {

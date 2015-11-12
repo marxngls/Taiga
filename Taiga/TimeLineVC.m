@@ -12,11 +12,6 @@
 #import "TimelineCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-
-#define USERS_URL           @"http://taiga.vestnikburi.com/api/v1/users"
-
-#define TIMELINE_URL        @"http://taiga.vestnikburi.com/api/v1/timeline/project/"
-
 @interface TimeLineVC ()<APIManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     BOOL isHide;
@@ -36,9 +31,13 @@
 
 @property (nonatomic, strong) UIRefreshControl * refreshControl;
 
+@property (nonatomic, strong) NSUserDefaults * userDefaults;
+
 @end
 
 @implementation TimeLineVC
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,39 +50,45 @@
     
     _timelineArray = [NSMutableArray new];
     
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    _userDefaults = [NSUserDefaults standardUserDefaults];
     
-    _profileDictionary = [[NSDictionary alloc] initWithDictionary:[userDefaults objectForKey:@"profile"]];
+    _profileDictionary = [[NSDictionary alloc] initWithDictionary:[_userDefaults objectForKey:@"profile"]];
     
     _userToken = [_profileDictionary objectForKey:@"auth_token"];
     
     _userID = [_profileDictionary objectForKey:@"id"];
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self setPullToRefresh];
     
-    [self.refreshControl addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
+    [self loadData:_userDefaults];
     
-    [self.tableView addSubview:self.refreshControl];
-
     
-    [self loadData];
-    
-    NSString *currentProjectID = [userDefaults objectForKey:@"currentProject"];
-    
-    NSString *timeLineURL = [NSString stringWithFormat:@"%@%@",TIMELINE_URL, currentProjectID];
-    
-    [[APIManager managerWithDelegate:self] getDataFromURL:timeLineURL withParams:nil andToken:_userToken];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void) loadData{
-    [[APIManager managerWithDelegate:self] getDataFromURL:TIMELINE_URL withParams:nil andToken:_userToken];
+- (void)setPullToRefresh {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    
+    [self.refreshControl addTarget:self action:@selector(pullToRefresh) forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
+}
+
+-(void) loadData:(NSUserDefaults*) userDefaults{
+    
+    NSString *currentProjectID = [userDefaults objectForKey:@"currentProject"];
+    
+    NSString* serverURL = [userDefaults objectForKey:@"serverURL"];
+    
+    serverURL = [serverURL stringByAppendingString:@"timeline/project/"];
+    
+    NSString *timeLineURL = [NSString stringWithFormat:@"%@%@", serverURL, currentProjectID];
+    
+    [[APIManager managerWithDelegate:self] getDataFromURL:timeLineURL withParams:nil andToken:_userToken];
 }
 
 - (void)makeNavbarTransparent {
@@ -100,7 +105,7 @@
     
     [self.refreshControl beginRefreshing];
     
-    [self loadData];
+    [self loadData:_userDefaults];
     
     [self.refreshControl endRefreshing];
 }
