@@ -18,7 +18,7 @@
 #import <MMDrawerController/MMDrawerController.h>
 
 
-#define DEFAULT_URL @"http://taiga.vestnikburi.com/api/v1/auth"
+#define DEFAULT_URL @"https://api.taiga.io/api/v1/auth"
 
 @interface SignInVC ()<UITextFieldDelegate, APIManagerDelegate>
 

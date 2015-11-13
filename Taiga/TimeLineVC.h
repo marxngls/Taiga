@@ -10,4 +10,9 @@
 
 @interface TimeLineVC : UIViewController
 
+
+@property (nonatomic, strong) UITableView * tableView;
+
+-(void) loadData:(NSUserDefaults*) userDefaults;
+
 @end

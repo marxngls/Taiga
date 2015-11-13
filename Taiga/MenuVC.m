@@ -96,7 +96,7 @@
             numberOfRows = 4;
             break;
         case 1:
-            numberOfRows = (int)_arrayOfLastProjects.count;
+            numberOfRows = (int)_arrayOfLastProjects.count + 1;
             break;
         case 2:
             numberOfRows = 1;
@@ -158,17 +158,22 @@
             break;
         case 1:
             
-            project = [[NSDictionary alloc] initWithDictionary:[_arrayOfLastProjects objectAtIndex:indexPath.row]];
             
+            if (indexPath.row == 3) {
+                cell.textLabel.text= @"more";
+            }
+            else {
+            project = [[NSDictionary alloc] initWithDictionary:[_arrayOfLastProjects objectAtIndex:indexPath.row]];
+
             cell.textLabel.text = [project objectForKey:@"name"];
             cell.detailTextLabel.text = [project objectForKey:@"description"];
-            
-            if ([project objectForKey:@"id"] != _currentProjectID) {
-                cell.imageView.image = nil;
             }
-            else{
+            
+            if ([project objectForKey:@"id"] == _currentProjectID) {
                 cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
             }
+            
+            
             
             
             break;
@@ -194,8 +199,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     id VC = [DasboardVC new];
-    
-    MenuVC * menu = [MenuVC new];
     
     if (indexPath.section == 0) {
         switch (indexPath.row) {
@@ -223,18 +226,42 @@
     }
     else if (indexPath.section == 1){
         
+        if (indexPath.row == 3) {
+            
+        }
+        else {
+        
+        UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+        
         NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
         
         NSString * newID = [[_arrayOfLastProjects objectAtIndex:indexPath.row] objectForKey:@"id"];
         
         [user setObject:newID  forKey:@"currentProject"];
         
-        //        cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
+        cell.imageView.image = [UIImage imageNamed:@"taiga-logo"];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        for (UITableViewCell * existCell in tableView.visibleCells) {
+                if (existCell != cell) {
+                    existCell.imageView.image = nil;
+                }
+            }
+        
+        if ([_drawController.centerViewController isKindOfClass:[TimeLineVC class]]) {
             
-            [self.tableView reloadData];
-        });
+            TimeLineVC * timeLineVC = (TimeLineVC*)_drawController.centerViewController;
+            
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [timeLineVC loadData:user];
+
+            });
+   
+        }
+        
+        [_drawController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+            
+        }
+        
     }
     else if (indexPath.section == 2){
         

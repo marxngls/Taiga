@@ -27,8 +27,6 @@
 
 @property (nonatomic, strong) NSMutableArray * timelineArray;
 
-@property (nonatomic, strong) UITableView * tableView;
-
 @property (nonatomic, strong) UIRefreshControl * refreshControl;
 
 @property (nonatomic, strong) NSUserDefaults * userDefaults;
