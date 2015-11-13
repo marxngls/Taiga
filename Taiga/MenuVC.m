@@ -15,6 +15,7 @@
 #import "APIManager.h"
 #import "LoginVC.h"
 #import "SignInVC.h"
+#import "ProjectsVC.h"
 
 @interface MenuVC ()<UITableViewDataSource, UITableViewDelegate, APIManagerDelegate>
 
@@ -227,7 +228,8 @@
     else if (indexPath.section == 1){
         
         if (indexPath.row == 3) {
-            
+            ProjectsVC * projectVC = [ProjectsVC new];
+            [_drawController setCenterViewController:projectVC withCloseAnimation:YES completion:nil];
         }
         else {
         

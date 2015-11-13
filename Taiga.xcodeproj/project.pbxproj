@@ -30,6 +30,7 @@
 		573A23719ADE434EC5733493 /* libPods-Taiga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D7247F74D7BCB030F9AB47 /* libPods-Taiga.a */; };
 		BB3BE30B1BF4922400313719 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3BE30A1BF4922400313719 /* Security.framework */; };
 		BB3BE30D1BF4923000313719 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3BE30C1BF4923000313719 /* CoreFoundation.framework */; };
+		BBE4CF5C1BF640840076453E /* ProjectsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE4CF5B1BF640840076453E /* ProjectsVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		A3D7247F74D7BCB030F9AB47 /* libPods-Taiga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taiga.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3BE30A1BF4922400313719 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BB3BE30C1BF4923000313719 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		BBE4CF5A1BF640840076453E /* ProjectsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsVC.h; sourceTree = "<group>"; };
+		BBE4CF5B1BF640840076453E /* ProjectsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsVC.m; sourceTree = "<group>"; };
 		BD02035847C375D6F41643DD /* Pods-Taiga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiga.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Taiga/Pods-Taiga.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +134,7 @@
 				28B0E0E01BDE63D80077B516 /* DasboardVC */,
 				28B0E0CF1BDE41600077B516 /* JSONModel */,
 				28B0E0CB1BDE40BA0077B516 /* API Manager */,
+				BBE4CF591BF640540076453E /* ProjectsVC */,
 				284945A21BDE2BBD00B83C21 /* Login VC */,
 				2849458E1BDE2B7000B83C21 /* AppDelegate.h */,
 				2849458F1BDE2B7000B83C21 /* AppDelegate.m */,
@@ -240,6 +244,15 @@
 				28E6BF661BDFE57B0064665F /* IssueVC.m */,
 			);
 			name = IssueVC;
+			sourceTree = "<group>";
+		};
+		BBE4CF591BF640540076453E /* ProjectsVC */ = {
+			isa = PBXGroup;
+			children = (
+				BBE4CF5A1BF640840076453E /* ProjectsVC.h */,
+				BBE4CF5B1BF640840076453E /* ProjectsVC.m */,
+			);
+			name = ProjectsVC;
 			sourceTree = "<group>";
 		};
 		BC6CD7D7673F342A915FDBB1 /* Frameworks */ = {
@@ -375,6 +388,7 @@
 				2862CCDA1BE3ACB800723A25 /* KanbanCell.m in Sources */,
 				284945901BDE2B7000B83C21 /* AppDelegate.m in Sources */,
 				2862CCD71BE24C9600723A25 /* TimelineCell.m in Sources */,
+				BBE4CF5C1BF640840076453E /* ProjectsVC.m in Sources */,
 				28B0E0E31BDE935B0077B516 /* DashboardCell.m in Sources */,
 				28B0E0DC1BDE5C470077B516 /* SignInVC.m in Sources */,
 				283B6E6E1BDF917D0028AAA2 /* BlurImage.m in Sources */,
